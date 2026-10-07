@@ -13,6 +13,7 @@ FRAME_HEIGHT = 100
 ANIM_RUN_LEFT = 0
 ANIM_RUN_RIGHT = 100
 ANIM_IDLE_RIGHT = 200
+ANIM_IDLE_LEFT = 300
 
 # 캐릭터 이동 속도
 SPEED = 5
@@ -75,7 +76,11 @@ while running:
         face_dir = 'LEFT'
         anim_row = ANIM_RUN_LEFT
     else:
-        anim_row = ANIM_IDLE_RIGHT
+        # 정지 상태: 직전 시선 방향 유지하여 대기 애니메이션 적용
+        if face_dir == 'RIGHT':
+            anim_row = ANIM_IDLE_RIGHT
+        else:
+            anim_row = ANIM_IDLE_LEFT
 
     clear_canvas()
     # 배경 화면 전체 렌더링
