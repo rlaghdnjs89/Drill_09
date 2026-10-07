@@ -33,6 +33,9 @@ y = CANVAS_HEIGHT // 2
 # x축 이동 방향 벡터 (-1: 좌, 0: 정지, 1: 우)
 dir_x = 0
 
+# 캐릭터가 마지막으로 바라보던 방향 ('RIGHT' 또는 'LEFT')
+face_dir = 'RIGHT'
+
 # 애니메이션 프레임 인덱스
 frame = 0
 
@@ -64,10 +67,12 @@ while running:
     # 캐릭터 위치 이동
     x += dir_x * SPEED
 
-    # 애니메이션 행(bottom) 결정
+    # 시선 방향 추적 및 애니메이션 행(bottom) 결정
     if dir_x > 0:
+        face_dir = 'RIGHT'
         anim_row = ANIM_RUN_RIGHT
     elif dir_x < 0:
+        face_dir = 'LEFT'
         anim_row = ANIM_RUN_LEFT
     else:
         anim_row = ANIM_IDLE_RIGHT
