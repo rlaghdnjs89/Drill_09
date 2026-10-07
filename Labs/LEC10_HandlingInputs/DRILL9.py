@@ -31,8 +31,9 @@ running = True
 x = CANVAS_WIDTH // 2
 y = CANVAS_HEIGHT // 2
 
-# x축 이동 방향 벡터 (-1: 좌, 0: 정지, 1: 우)
+# 이동 방향 벡터 (-1, 0, 1)
 dir_x = 0
+dir_y = 0
 
 # 캐릭터가 마지막으로 바라보던 방향 ('RIGHT' 또는 'LEFT')
 face_dir = 'RIGHT'
@@ -67,6 +68,7 @@ while running:
 
     # 캐릭터 위치 이동
     x += dir_x * SPEED
+    y += dir_y * SPEED
 
     # 시선 방향 추적 및 애니메이션 행(bottom) 결정
     if dir_x > 0:
