@@ -22,6 +22,9 @@ running = True
 x = CANVAS_WIDTH // 2
 y = CANVAS_HEIGHT // 2
 
+# 애니메이션 프레임 인덱스
+frame = 0
+
 
 def handle_events():
     global running
