@@ -10,6 +10,7 @@ FRAME_WIDTH = 100
 FRAME_HEIGHT = 100
 
 # 애니메이션 시트 행 좌표(bottom) 상수
+ANIM_RUN_LEFT = 0
 ANIM_RUN_RIGHT = 100
 ANIM_IDLE_RIGHT = 200
 
@@ -66,6 +67,8 @@ while running:
     # 애니메이션 행(bottom) 결정
     if dir_x > 0:
         anim_row = ANIM_RUN_RIGHT
+    elif dir_x < 0:
+        anim_row = ANIM_RUN_LEFT
     else:
         anim_row = ANIM_IDLE_RIGHT
 
