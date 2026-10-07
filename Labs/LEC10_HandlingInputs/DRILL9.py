@@ -19,8 +19,9 @@ ANIM_RUN_RIGHT = 100
 ANIM_IDLE_RIGHT = 200
 ANIM_IDLE_LEFT = 300
 
-# 캐릭터 이동 속도
-SPEED = 5
+# 캐릭터 이동 속도 및 프레임 딜레이
+MOVE_SPEED = 7
+FRAME_DELAY = 0.04
 
 open_canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
 
@@ -71,7 +72,7 @@ def handle_events():
             elif event.key == SDLK_UP:
                 dir_y -= 1
             elif event.key == SDLK_DOWN:
-                dir_y += 1
+                dir_y -= 1
 
 
 def get_animation_row(dx, dy, current_face_dir):
@@ -92,9 +93,9 @@ def update():
     """캐릭터 위치 갱신, 화면 경계 클램핑, 시선 갱신, 프레임 카운팅"""
     global x, y, face_dir, frame
 
-    # 위치 이동 및 화면 경계 클램핑
-    x = max(HALF_WIDTH, min(CANVAS_WIDTH - HALF_WIDTH, x + dir_x * SPEED))
-    y = max(HALF_HEIGHT, min(CANVAS_HEIGHT - HALF_HEIGHT, y + dir_y * SPEED))
+    # 위치 이동 및 화면 경계 클램핑 (1280x1024 해상도 대응)
+    x = max(HALF_WIDTH, min(CANVAS_WIDTH - HALF_WIDTH, x + dir_x * MOVE_SPEED))
+    y = max(HALF_HEIGHT, min(CANVAS_HEIGHT - HALF_HEIGHT, y + dir_y * MOVE_SPEED))
 
     # 좌/우 이동 시 시선 방향 갱신
     if dir_x > 0:
@@ -124,7 +125,7 @@ while running:
     update()
     render()
 
-    # 자연스러운 애니메이션 재생 주기
-    delay(0.05)
+    # 부드러운 애니메이션 및 반응성을 위한 딜레이
+    delay(FRAME_DELAY)
 
 close_canvas()
