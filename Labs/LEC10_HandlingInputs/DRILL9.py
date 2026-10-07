@@ -9,6 +9,10 @@ CANVAS_HEIGHT = 1024
 FRAME_WIDTH = 100
 FRAME_HEIGHT = 100
 
+# 애니메이션 시트 행 좌표(bottom) 상수
+ANIM_RUN_RIGHT = 100
+ANIM_IDLE_RIGHT = 200
+
 # 캐릭터 이동 속도
 SPEED = 5
 
@@ -59,11 +63,17 @@ while running:
     # 캐릭터 위치 이동
     x += dir_x * SPEED
 
+    # 애니메이션 행(bottom) 결정
+    if dir_x > 0:
+        anim_row = ANIM_RUN_RIGHT
+    else:
+        anim_row = ANIM_IDLE_RIGHT
+
     clear_canvas()
     # 배경 화면 전체 렌더링
     ground_image.draw(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
-    # 대기 상태 8프레임 제자리 애니메이션 렌더링
-    character_sheet.clip_draw(frame * FRAME_WIDTH, 200, FRAME_WIDTH, FRAME_HEIGHT, x, y)
+    # 결정된 애니메이션 행으로 캐릭터 렌더링
+    character_sheet.clip_draw(frame * FRAME_WIDTH, anim_row, FRAME_WIDTH, FRAME_HEIGHT, x, y)
     update_canvas()
 
     # 프레임 순환 갱신 (8프레임)
