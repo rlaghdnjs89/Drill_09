@@ -160,12 +160,19 @@ def render():
 
 
 # -----------------------------------------------------------------------------
-# 7. 메인 루프 실행
+# 7. 메인 루프 실행 진입점
 # -----------------------------------------------------------------------------
-while running:
-    handle_events()
-    update()
-    render()
-    delay(FRAME_DELAY)
+def main():
+    """게임 메인 루프 실행 및 종료 제어"""
+    while running:
+        handle_events()
+        update()
+        render()
+        delay(FRAME_DELAY)
 
-close_canvas()
+    close_canvas()
+
+
+if __name__ == '__main__':
+    main()
+
