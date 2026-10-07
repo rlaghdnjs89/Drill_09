@@ -5,6 +5,10 @@ from pico2d import *
 CANVAS_WIDTH = 1280
 CANVAS_HEIGHT = 1024
 
+# 스프라이트 프레임 크기 상수
+FRAME_WIDTH = 100
+FRAME_HEIGHT = 100
+
 open_canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
 
 # 리소스 경로 설정 및 로드
@@ -13,6 +17,10 @@ ground_image = load_image(os.path.join(RESOURCE_DIR, 'TUK_GROUND.png'))
 character_sheet = load_image(os.path.join(RESOURCE_DIR, 'animation_sheet.png'))
 
 running = True
+
+# 캐릭터 초기 위치 (화면 중앙)
+x = CANVAS_WIDTH // 2
+y = CANVAS_HEIGHT // 2
 
 
 def handle_events():
