@@ -9,6 +9,10 @@ CANVAS_HEIGHT = 1024
 FRAME_WIDTH = 100
 FRAME_HEIGHT = 100
 
+# 화면 경계 여백 (스프라이트 중심 기준)
+HALF_WIDTH = FRAME_WIDTH // 2
+HALF_HEIGHT = FRAME_HEIGHT // 2
+
 # 애니메이션 시트 행 좌표(bottom) 상수
 ANIM_RUN_LEFT = 0
 ANIM_RUN_RIGHT = 100
@@ -74,8 +78,8 @@ def handle_events():
 while running:
     handle_events()
 
-    # 캐릭터 위치 이동
-    x += dir_x * SPEED
+    # 캐릭터 위치 이동 및 x축 화면 경계 클램핑 (화면 밖 이탈 방지)
+    x = max(HALF_WIDTH, min(CANVAS_WIDTH - HALF_WIDTH, x + dir_x * SPEED))
     y += dir_y * SPEED
 
     # 시선 방향 추적 및 애니메이션 행(bottom) 결정
