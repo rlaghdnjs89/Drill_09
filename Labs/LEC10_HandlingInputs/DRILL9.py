@@ -50,6 +50,7 @@ while running:
     # 프레임 순환 갱신 (8프레임)
     frame = (frame + 1) % 8
 
-    delay(0.01)
+    # 자연스러운 애니메이션 재생 주기 (초당 약 20fps 갱신)
+    delay(0.05)
 
 close_canvas()
