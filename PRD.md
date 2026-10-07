@@ -193,3 +193,4 @@ flowchart TD
 | **Step 14** | `test: verify boundary collisions on all four corners` | 네 모서리 및 경계선에서 캐릭터 스프라이트 잘림 없는지 최종 검증 |
 | **Step 15** | `docs: add inline comments and header documentation` | 코드 주석 보강 및 함수/변수 명세 정리 |
 | **Step 16** | `docs: finalize PRD and project implementation review` | 최종 요구사항 충족 검토 및 PRD 완료 체크 |
+
