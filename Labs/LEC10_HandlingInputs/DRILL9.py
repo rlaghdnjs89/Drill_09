@@ -47,6 +47,9 @@ while running:
     character_sheet.clip_draw(0, 200, FRAME_WIDTH, FRAME_HEIGHT, x, y)
     update_canvas()
 
+    # 프레임 순환 갱신 (8프레임)
+    frame = (frame + 1) % 8
+
     delay(0.01)
 
 close_canvas()
