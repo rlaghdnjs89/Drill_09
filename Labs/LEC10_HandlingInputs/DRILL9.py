@@ -43,8 +43,8 @@ while running:
     clear_canvas()
     # 배경 화면 전체 렌더링
     ground_image.draw(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
-    # 화면 중앙에 캐릭터 첫 프레임(우측 대기) 렌더링
-    character_sheet.clip_draw(0, 200, FRAME_WIDTH, FRAME_HEIGHT, x, y)
+    # 대기 상태 8프레임 제자리 애니메이션 렌더링
+    character_sheet.clip_draw(frame * FRAME_WIDTH, 200, FRAME_WIDTH, FRAME_HEIGHT, x, y)
     update_canvas()
 
     # 프레임 순환 갱신 (8프레임)
