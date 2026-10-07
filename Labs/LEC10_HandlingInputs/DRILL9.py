@@ -85,8 +85,14 @@ while running:
     elif dir_x < 0:
         face_dir = 'LEFT'
         anim_row = ANIM_RUN_LEFT
+    elif dir_y != 0:
+        # 상/하 이동 시에는 기존 좌/우 바라보는 방향을 유지하며 달리기 애니메이션 재생
+        if face_dir == 'RIGHT':
+            anim_row = ANIM_RUN_RIGHT
+        else:
+            anim_row = ANIM_RUN_LEFT
     else:
-        # 정지 상태: 직전 시선 방향 유지하여 대기 애니메이션 적용
+        # 완전히 정지했을 때 (dir_x == 0, dir_y == 0): 기존 방향 대기 애니메이션 재생
         if face_dir == 'RIGHT':
             anim_row = ANIM_IDLE_RIGHT
         else:
