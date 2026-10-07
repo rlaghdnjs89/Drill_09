@@ -78,9 +78,9 @@ def handle_events():
 while running:
     handle_events()
 
-    # 캐릭터 위치 이동 및 x축 화면 경계 클램핑 (화면 밖 이탈 방지)
+    # 캐릭터 위치 이동 및 화면 경계 클램핑 (상하좌우 4방향 이탈 방지)
     x = max(HALF_WIDTH, min(CANVAS_WIDTH - HALF_WIDTH, x + dir_x * SPEED))
-    y += dir_y * SPEED
+    y = max(HALF_HEIGHT, min(CANVAS_HEIGHT - HALF_HEIGHT, y + dir_y * SPEED))
 
     # 시선 방향 추적 및 애니메이션 행(bottom) 결정
     if dir_x > 0:
