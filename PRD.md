@@ -59,9 +59,9 @@
 
 ```
 +--------------------------------------------------------------+ y = 402
-| Row 3 (bottom = 300) : IDLE (오른쪽 바라보는 대기 동작, 8프레임)  |
+| Row 3 (bottom = 300) : IDLE (왼쪽 바라보는 대기 동작, 8프레임)    |
 +--------------------------------------------------------------+ y = 300
-| Row 2 (bottom = 200) : IDLE (왼쪽 바라보는 대기 동작, 8프레임)   |
+| Row 2 (bottom = 200) : IDLE (오른쪽 바라보는 대기 동작, 8프레임)  |
 +--------------------------------------------------------------+ y = 200
 | Row 1 (bottom = 100) : RUN  (오른쪽 달리기 동작, 8프레임)        |
 +--------------------------------------------------------------+ y = 100
@@ -78,8 +78,8 @@
 | :--- | :--- | :---: | :---: | :--- |
 | **RUN** | RIGHT | **100** | 8 | 우측 이동 중 |
 | **RUN** | LEFT | **0** | 8 | 좌측 이동 중 |
-| **IDLE** | RIGHT | **300** | 8 | 우측 방향 유지 대기 |
-| **IDLE** | LEFT | **200** | 8 | 좌측 방향 유지 대기 |
+| **IDLE** | RIGHT | **200** | 8 | 우측 방향 유지 대기 |
+| **IDLE** | LEFT | **300** | 8 | 좌측 방향 유지 대기 |
 
 > *참고*: 스프라이트 시트의 미세 여백에 따라 `bottom` 기준선은 필요시 육안 검증 후 상호 호환되도록 구성합니다.
 
@@ -92,10 +92,10 @@ stateDiagram-v2
     [*] --> IDLE_RIGHT : 초기 시작 (화면 중앙)
 
     state IDLE_RIGHT {
-        description: 정지 상태 (우측 응시, bottom=300)
+        description: 정지 상태 (우측 응시, bottom=200)
     }
     state IDLE_LEFT {
-        description: 정지 상태 (좌측 응시, bottom=200)
+        description: 정지 상태 (좌측 응시, bottom=300)
     }
     state RUN_RIGHT {
         description: 이동 중 (우측/상/하, bottom=100)
@@ -120,8 +120,8 @@ stateDiagram-v2
 #### 방향 및 상태 결정 규칙 표
 | 현재 `dir_x` | 현재 `dir_y` | 직전 `face_dir` | 판정 `face_dir` | 판정 `state` | 적용 `bottom` |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| `0` | `0` | `RIGHT` | `RIGHT` (유지) | `IDLE` | `300` |
-| `0` | `0` | `LEFT` | `LEFT` (유지) | `IDLE` | `200` |
+| `0` | `0` | `RIGHT` | `RIGHT` (유지) | `IDLE` | `200` |
+| `0` | `0` | `LEFT` | `LEFT` (유지) | `IDLE` | `300` |
 | `> 0` | 임의 | 무관 | `RIGHT` (갱신) | `RUN` | `100` |
 | `< 0` | 임의 | 무관 | `LEFT` (갱신) | `RUN` | `0` |
 | `0` | `!= 0` | `RIGHT` | `RIGHT` (유지) | `RUN` | `100` |
@@ -183,7 +183,7 @@ flowchart TD
 | **Step 04** | `feat: animate idle state with 8 frames` | `frame = (frame + 1) % 8` 적용하여 제자리 대기 8프레임 순환 애니메이션 구현 |
 | **Step 05** | `feat: implement horizontal key inputs for movement` | `LEFT`/`RIGHT` 방향키 `KEYDOWN`/`KEYUP` 처리하여 수평 이동 로직 구현 |
 | **Step 06** | `feat: switch animation to run on horizontal movement` | 좌/우 이동 시 `RUN_RIGHT`(bottom=100), `RUN_LEFT`(bottom=0) 스프라이트로 전환 |
-| **Step 07** | `feat: maintain face direction in idle after horizontal move` | 좌/우 이동 멈춤 시 마지막 방향에 따라 `IDLE_RIGHT`(bottom=300), `IDLE_LEFT`(bottom=200) 유지 |
+| **Step 07** | `feat: maintain face direction in idle after horizontal move` | 좌/우 이동 멈춤 시 마지막 방향에 따라 `IDLE_RIGHT`(bottom=200), `IDLE_LEFT`(bottom=300) 유지 |
 | **Step 08** | `feat: implement vertical key inputs for movement` | `UP`/`DOWN` 방향키 이벤트 처리하여 수직 이동 로직 추가 및 대각선 이동 지원 |
 | **Step 09** | `feat: preserve face direction during vertical-only movement` | 상/하 단독 이동 시 직전 `face_dir`을 유지하며 해당 방향 `RUN` 애니메이션 재생 |
 | **Step 10** | `feat: implement boundary clamping for canvas edges` | `x: [50, 1230]`, `y: [50, 974]` 경계 벗어남 방지 클램핑 로직 추가 |
