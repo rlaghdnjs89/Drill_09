@@ -106,12 +106,8 @@ def update():
     frame = (frame + 1) % 8
 
 
-# 메인 루프
-while running:
-    handle_events()
-    update()
-
-    # 현재 상태에 맞는 애니메이션 행 결정
+def render():
+    """배경 및 현재 캐릭터 애니메이션 프레임 화면 출력"""
     anim_row = get_animation_row(dir_x, dir_y, face_dir)
 
     clear_canvas()
@@ -120,6 +116,13 @@ while running:
     # 결정된 애니메이션 행으로 캐릭터 렌더링
     character_sheet.clip_draw(frame * FRAME_WIDTH, anim_row, FRAME_WIDTH, FRAME_HEIGHT, x, y)
     update_canvas()
+
+
+# 메인 루프
+while running:
+    handle_events()
+    update()
+    render()
 
     # 자연스러운 애니메이션 재생 주기
     delay(0.05)
