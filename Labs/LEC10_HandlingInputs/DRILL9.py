@@ -88,19 +88,28 @@ def get_animation_row(dx, dy, current_face_dir):
         return ANIM_IDLE_RIGHT if current_face_dir == 'RIGHT' else ANIM_IDLE_LEFT
 
 
-# 메인 루프
-while running:
-    handle_events()
+def update():
+    """캐릭터 위치 갱신, 화면 경계 클램핑, 시선 갱신, 프레임 카운팅"""
+    global x, y, face_dir, frame
 
-    # 캐릭터 위치 이동 및 화면 경계 클램핑 (상하좌우 4방향 이탈 방지)
+    # 위치 이동 및 화면 경계 클램핑
     x = max(HALF_WIDTH, min(CANVAS_WIDTH - HALF_WIDTH, x + dir_x * SPEED))
     y = max(HALF_HEIGHT, min(CANVAS_HEIGHT - HALF_HEIGHT, y + dir_y * SPEED))
 
-    # 좌/우 입력 시 시선 방향 갱신
+    # 좌/우 이동 시 시선 방향 갱신
     if dir_x > 0:
         face_dir = 'RIGHT'
     elif dir_x < 0:
         face_dir = 'LEFT'
+
+    # 8프레임 순환 갱신
+    frame = (frame + 1) % 8
+
+
+# 메인 루프
+while running:
+    handle_events()
+    update()
 
     # 현재 상태에 맞는 애니메이션 행 결정
     anim_row = get_animation_row(dir_x, dir_y, face_dir)
@@ -112,10 +121,7 @@ while running:
     character_sheet.clip_draw(frame * FRAME_WIDTH, anim_row, FRAME_WIDTH, FRAME_HEIGHT, x, y)
     update_canvas()
 
-    # 프레임 순환 갱신 (8프레임)
-    frame = (frame + 1) % 8
-
-    # 자연스러운 애니메이션 재생 주기 (초당 약 20fps 갱신)
+    # 자연스러운 애니메이션 재생 주기
     delay(0.05)
 
 close_canvas()
