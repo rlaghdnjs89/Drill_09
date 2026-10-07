@@ -40,6 +40,8 @@ while running:
     clear_canvas()
     # 배경 화면 전체 렌더링
     ground_image.draw(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
+    # 화면 중앙에 캐릭터 첫 프레임(우측 대기) 렌더링
+    character_sheet.clip_draw(0, 200, FRAME_WIDTH, FRAME_HEIGHT, x, y)
     update_canvas()
 
     delay(0.01)
