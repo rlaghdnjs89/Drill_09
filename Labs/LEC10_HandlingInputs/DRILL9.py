@@ -10,6 +10,7 @@ open_canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
 # 리소스 경로 설정 및 로드
 RESOURCE_DIR = os.path.dirname(os.path.abspath(__file__))
 ground_image = load_image(os.path.join(RESOURCE_DIR, 'TUK_GROUND.png'))
+character_sheet = load_image(os.path.join(RESOURCE_DIR, 'animation_sheet.png'))
 
 running = True
 
