@@ -74,6 +74,20 @@ def handle_events():
                 dir_y += 1
 
 
+def get_animation_row(dx, dy, current_face_dir):
+    """현재 이동 벡터와 시선 방향을 바탕으로 재생할 애니메이션 행(bottom)을 반환"""
+    if dx > 0:
+        return ANIM_RUN_RIGHT
+    elif dx < 0:
+        return ANIM_RUN_LEFT
+    elif dy != 0:
+        # 상/하 이동 시 기존 좌/우 바라보는 방향을 유지하며 달리기 재생
+        return ANIM_RUN_RIGHT if current_face_dir == 'RIGHT' else ANIM_RUN_LEFT
+    else:
+        # 정지(IDLE) 상태: 마지막 시선 방향 유지
+        return ANIM_IDLE_RIGHT if current_face_dir == 'RIGHT' else ANIM_IDLE_LEFT
+
+
 # 메인 루프
 while running:
     handle_events()
@@ -82,25 +96,14 @@ while running:
     x = max(HALF_WIDTH, min(CANVAS_WIDTH - HALF_WIDTH, x + dir_x * SPEED))
     y = max(HALF_HEIGHT, min(CANVAS_HEIGHT - HALF_HEIGHT, y + dir_y * SPEED))
 
-    # 시선 방향 추적 및 애니메이션 행(bottom) 결정
+    # 좌/우 입력 시 시선 방향 갱신
     if dir_x > 0:
         face_dir = 'RIGHT'
-        anim_row = ANIM_RUN_RIGHT
     elif dir_x < 0:
         face_dir = 'LEFT'
-        anim_row = ANIM_RUN_LEFT
-    elif dir_y != 0:
-        # 상/하 이동 시에는 기존 좌/우 바라보는 방향을 유지하며 달리기 애니메이션 재생
-        if face_dir == 'RIGHT':
-            anim_row = ANIM_RUN_RIGHT
-        else:
-            anim_row = ANIM_RUN_LEFT
-    else:
-        # 완전히 정지했을 때 (dir_x == 0, dir_y == 0): 기존 방향 대기 애니메이션 재생
-        if face_dir == 'RIGHT':
-            anim_row = ANIM_IDLE_RIGHT
-        else:
-            anim_row = ANIM_IDLE_LEFT
+
+    # 현재 상태에 맞는 애니메이션 행 결정
+    anim_row = get_animation_row(dir_x, dir_y, face_dir)
 
     clear_canvas()
     # 배경 화면 전체 렌더링
